@@ -1,0 +1,38 @@
+/ {
+    chosen {
+        zmk,keyboard = &kscan0;
+        zmk,display = &oled0;
+    };
+
+    analog_stick: analog_stick {
+        compatible = "zmk,analog-input";
+        io-channels = <&adc 2>, <&adc 3>;   // GP28=ADC2, GP29=ADC3
+        deadzone = <400>;
+        range = <4096>;
+        sensitivity = <3>;
+    };
+};
+
+// キースキャン（例）
+&kscan0 {
+    row-gpios = <&gpio0 2>, <&gpio0 3>, <&gpio0 4>, <&gpio0 5>;
+    col-gpios = <&gpio0 6>, <&gpio0 7>, <&gpio0 8>, <&gpio0 9>;
+};
+
+// OLED
+&i2c0 {
+    status = "okay";
+    oled0: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <32>;
+    };
+};
+
+// LED
+ws2812: ws2812 {
+    compatible = "zmk,ws2812";
+    chain-length = <10>;
+    gpios = <&gpio0 10 0>;   // DIN ピン
+};

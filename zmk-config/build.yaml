@@ -1,0 +1,4 @@
+include:
+  - board: nice_nano_v2
+    shield: lhp14_lite_rp2040
+    artifact-name: lhp14_rp2040
